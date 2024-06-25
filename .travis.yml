@@ -6,11 +6,10 @@ services:
 
 before_install:
   - echo "Building Docker image"
-  - docker build -e CI=true -t lawal/docker-react -f Dockerfile.dev .
-
+  - docker build -t lawal/docker-react -f Dockerfile.dev .
 script:
   - echo "Running tests in Docker container"
-  - docker run lawal/docker-react npm run test -- --coverage
+  - docker run -e CI=true lawal/docker-react npm run test
 
 
 deploy:
