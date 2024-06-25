@@ -5,8 +5,8 @@ services:
 before_install: 
   - docker build -t lawal/docker-react -f Dockerfile.dev .
 
-scripts:
-  - dokcer run lawal/docker-react npm run test -- --coverage
+script:
+  - dokcer run -e CI=true lawal/docker-react npm run test -- --coverage
 
 deploy:
   provider: elasticbeanstalk
