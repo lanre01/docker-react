@@ -1,12 +1,16 @@
 sudo: required
+language: generic
+
 services:
   - docker
 
-before_install: 
+before_install:
+  - echo "Building Docker image"
   - docker build -t lawal/docker-react -f Dockerfile.dev .
-
 script:
+  - echo "Running tests in Docker container"
   - docker run -e CI=true lawal/docker-react npm run test
+
 
 deploy:
   provider: elasticbeanstalk
@@ -18,4 +22,4 @@ deploy:
   on: 
     branch: main
   access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: "$AWS_SECRET_KEY"
+  secret_access_key: $AWS_SECRET_KEY
